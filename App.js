@@ -1,20 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import { Text, View } from "react-native";
 
-export default function App() {
+import styles from "./App.styles";
+import ImageOption from "./src/components/ImageOption";
+import question from "./assets/data/oneQuestionWithOption";
+
+//Functional Component
+const App = () => {
+  const [selected, setSelected] = useState(null);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={styles.root}>
+      <Text style={styles.title}>{question.question}</Text>
+      <View style={styles.optionsContainer}>
+        {question.options.map((option) => (
+          <ImageOption
+            key={option.id}
+            image={option.image}
+            text={option.text}
+            isSelected={selected?.id === option.id}
+            onPress={() => setSelected(option)}
+          />
+        ))}
+      </View>
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
