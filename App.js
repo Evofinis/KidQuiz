@@ -3,7 +3,10 @@ import { View, Alert } from "react-native";
 
 import styles from "./App.styles";
 import ImageMultipleChoiceQuestion from "./src/components/ImageMultipleChoiceQuestion";
-import questions from "./assets/data/imageMulatipleChoiceQuestions";
+// import questions from "./assets/data/imageMulatipleChoiceQuestions";
+// import questions from "./assets/data/openEndedQuestions";
+import questions from "./assets/data/allQuestions";
+import OpenEndedQuestion from "./src/components/OpenEndedQuestion";
 
 //Functional Component
 const App = () => {
@@ -31,11 +34,20 @@ const App = () => {
 
   return (
     <View style={styles.root}>
-      <ImageMultipleChoiceQuestion
-        question={currentQuestion}
-        onCorrect={onCorrect}
-        onWrong={onWrong}
-      />
+      {currentQuestion.type === "IMAGE_MULTIPLE_CHOICE" && (
+        <ImageMultipleChoiceQuestion
+          question={currentQuestion}
+          onCorrect={onCorrect}
+          onWrong={onWrong}
+        />
+      )}
+      {currentQuestion.type === "OPEN_ENDED" && (
+        <OpenEndedQuestion
+          question={currentQuestion}
+          onCorrect={onCorrect}
+          onWrong={onWrong}
+        />
+      )}
     </View>
   );
 };
